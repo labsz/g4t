@@ -2,7 +2,7 @@
 > A simple cli app to help you with git.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CodeFactor](https://www.codefactor.io/repository/github/freazesss/g4t/badge/master)](https://www.codefactor.io/repository/github/freazesss/g4t/overview/master)
 
 ## Installation
 
