@@ -1,36 +1,21 @@
+# G4t
+> A simple cli app to help you with git.
 
-<p float="left">
-  <img src=".github/screen_1.png" width="460" />
-  <img src=".github/screen_2.png" width="475" /> 
-</p>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# g4t
+## Installation
 
-a simple cli app to help you with git.
-
-# ⚙️ Requirements
-
-1. Ruby
-2. Git
-
-# 🏃‍♂️ How to run
-
-1. clone the repository using:
-
-```zsh
-git clone https://github.com/freazesss/g4t/
-```
-
-2. install the dependencies using:
-```zsh
+```sh
 gem install colorize
 gem install tty-prompt
+ruby main.rb
 ```
 
-3. run the app using:
+## Contributing
 
-```zsh
-ruby main.sh
-```
-
-**Mit License ©**
+1. Fork it.
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
