@@ -30,7 +30,7 @@ gem install tty-prompt
 3. run the app using:
 
 ```zsh
-ruby main.sh
+ruby main.rb
 ```
 
 **Mit License ©**
