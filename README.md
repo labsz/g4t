@@ -1,7 +1,7 @@
 
 <p float="left">
   <img src=".github/screen_1.png" width="460" />
-  <img src=".github/screen_2.png" width="475" /> 
+  <img src=".github/screen_2.png" width="465" /> 
 </p>
 
 # g4t
