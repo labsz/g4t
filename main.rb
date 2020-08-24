@@ -40,7 +40,7 @@ class Application
   end
 
   def show_panel
-    opts = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', "Close"]
+    opts = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs', "Close"]
     option = @prompt.select("#{$lastmsg}, what do you want to do?", opts)
     case option
     when 'Add remote address' then
@@ -76,6 +76,10 @@ class Application
       system(cmd)
     when 'Show git status' then
       cmd = "git status"
+      puts("Command: #{cmd}")
+      system(cmd)
+    when 'Show git logs' then
+      cmd = "git log"
       puts("Command: #{cmd}")
       system(cmd)
     when 'Close' then
