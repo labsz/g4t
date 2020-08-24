@@ -14,7 +14,7 @@
 Linux:
 
 ```sh
-sh install.sh
+sudo sh install.sh
 ```
 
 Windows:
