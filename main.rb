@@ -5,9 +5,67 @@ require 'tty-prompt'
 require 'colorize'
 require 'etc'
 
+class Options
+    def initialize
+        @prompt = TTY::Prompt.new
+    end
+
+    def commit_files
+        $lastmsg = 'Now that we commited the files'
+        msg = @prompt.ask("Message to commit:")
+        cmd = "git commit -m #{msg}"
+        puts("Command: #{cmd}")
+        system(cmd)
+    end
+
+    def add_files
+        $lastmsg = 'Now that we added the files'
+        all_files = @prompt.yes?("Add all files?")
+        if all_files
+            cmd = "git add ."
+            puts("Adding all files...")
+        else
+            fname = @prompt.ask("File to add:")
+            cmd = "git add #{fname}"
+        end
+        puts("Command: #{cmd}")
+        system(cmd)
+    end
+
+    def logs
+        cmd = "git log"
+        puts("Command: #{cmd}")
+        system(cmd)
+    end
+
+    def push_branch
+        branch = @prompt.ask("Branch to push:")
+        cmd = "git push origin #{branch}"
+        puts("Command: #{cmd}")
+        system(cmd)
+    end
+
+    def remote_adress
+        $lastmsg = 'Now that we the remote address'
+        uname = @prompt.ask('Your github username:')
+        repo = @prompt.ask('Your repository name:')
+        cmd = "git remote add origin https://github.com/#{uname}/#{repo}.git"
+        puts("Adding remote repository https://github.com/#{uname}/#{repo}...")
+        puts("Command: #{cmd}")
+        system(cmd)
+    end
+
+    def status
+        cmd = "git status"
+        puts("Command: #{cmd}")
+        system(cmd)
+    end
+end
+
 class Application
   def initialize
     @prompt = TTY::Prompt.new
+    @opt = Options.new
     $lastmsg ||= "With .git initialized"
     initialized_git?
     g4t_start
@@ -40,48 +98,21 @@ class Application
   end
 
   def show_panel
-    opts = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs', "Close"]
-    option = @prompt.select("#{$lastmsg}, what do you want to do?", opts)
+    options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs', "Close"]
+    option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
     case option
     when 'Add remote address' then
-      $lastmsg = 'Now that we the remote address'
-      uname = @prompt.ask('Your github username:')
-      repo = @prompt.ask('Your repository name:')
-      cmd = "git remote add origin https://github.com/#{uname}/#{repo}.git"
-      puts("Adding remote repository https://github.com/#{uname}/#{repo}...")
-      puts("Command: #{cmd}")
-      system(cmd)
+      @opt.remote_adress
     when 'Add files' then
-      $lastmsg = 'Now that we added the files'
-      all_files = @prompt.yes?("Add all files?")
-      if all_files
-        cmd = "git add ."
-        puts("Adding all files...")
-      else
-        fname = @prompt.ask("File to add:")
-        cmd = "git add #{fname}"
-      end
-      puts("Command: #{cmd}")
-      system(cmd)
+      @opt.add_files
     when 'Commit files' then
-      $lastmsg = 'Now that we commited the files'
-      msg = @prompt.ask("Message to commit:")
-      cmd = "git commit -m #{msg}"
-      puts("Command: #{cmd}")
-      system(cmd)
+        @opt.commit_files
     when 'Push files to branch' then
-      branch = @prompt.ask("Branch to push:")
-      cmd = "git push origin #{branch}"
-      puts("Command: #{cmd}")
-      system(cmd)
+      @opt.push_branch
     when 'Show git status' then
-      cmd = "git status"
-      puts("Command: #{cmd}")
-      system(cmd)
+      @opt.status
     when 'Show git logs' then
-      cmd = "git log"
-      puts("Command: #{cmd}")
-      system(cmd)
+      @opt.logs
     when 'Close' then
       puts "Goodbye"
       exit
