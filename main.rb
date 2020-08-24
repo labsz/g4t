@@ -4,48 +4,85 @@
 require 'tty-prompt'
 require 'colorize'
 
-$prompt = TTY::Prompt.new
+class Application
+  def initialize
+    @prompt = TTY::Prompt.new
+    $lastmsg ||= "With .git initialized"
+    initialized_git?
+    g4t_start
+  end
 
-def commit_msg
-    msg = $prompt.ask("Enter the commit msg:")
-
-    system("git commit -m #{msg}")
-    system("git push origin")
-end
-
-def remote_add
-    system("git remote add origin https://github.com/#{ARGV[0]}/#{ARGV[1]}")
-    add_files
-end
-
-def add_files
-    chose_btn = $prompt.yes?("Add all files:".magenta)
-
-    case chose_btn
-    when true
-        system("git add .")
-    else
-        file_name = $prompt.ask("Enter the file name to add:")
-
-        system("git add #{file_name}")
+  def initialized_git?
+    identify_user
+    unless File.directory?('.git')
+      git_init = @prompt.yes?('The .git directory was not found, do you want to initialize it?')
+      if git_init
+        $lastmsg = "Now that we initialized .git"
+        cmd = "git init"
+        puts("Initializing Git repository in '#{Dir.pwd}/.git'...")
+        puts("Command: #{cmd}")
+        system(cmd)
+      else
+        abort('Can not possible continue without .git repository!')
+      end
     end
+  end
 
-    commit_msg
-end
+  def identify_user
+    email = @prompt.mask("Github email: ")
+    uname = @prompt.ask("Github username: ")
+    cmd = "git config --global user.email #{email} && git config --global user.name #{uname}"
+    puts("Command: #{cmd}")
+    system(cmd)
+  end
 
-def verify
-    if File.directory?(".git") == false
-        chose_btn = $prompt.yes?("You forget to initialize the repository, you wanna initialize:".red)
-        case chose_btn
-        when true
-            system("git init")
-            remote_add
-        else
-            puts "Good Bye"
-        end
-    else
-        add_files
+  def show_panel
+    opts = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status']
+    option = @prompt.select("#{$lastmsg}, what do you want to do?", opts)
+    case option
+    when 'Add remote address' then
+      $lastmsg = 'Now that we the remote address'
+      uname = @prompt.ask('Your github username:')
+      repo = @prompt.ask('Your repository name:')
+      cmd = "git remote add origin https://github.com/#{uname}/#{repo}.git"
+      puts("Adding remote repository https://github.com/#{uname}/#{repo}...")
+      puts("Command: #{cmd}")
+      system(cmd)
+    when 'Add files' then
+      $lastmsg = 'Now that we added the files'
+      all_files = @prompt.yes?("Add all files?")
+      if all_files
+        cmd = "git add ."
+        puts("Adding all files...")
+        puts("Command: #{cmd}")
+        system(cmd)
+      else
+        fname = @prompt.ask("File to add:")
+        cmd = "git add #{fname}"
+        puts("Command: #{cmd}")
+        system(cmd)
+      end
+    when 'Commit files' then
+      $lastmsg = 'Now that we commited the files'
+      msg = @prompt.ask("Message to commit:")
+      cmd = "git commit -m #{msg}"
+      puts("Command: #{cmd}")
+      system(cmd)
+    when 'Push files to branch' then
+      branch = @prompt.ask("Branch to push:")
+      cmd = "git push origin #{branch}"
+      puts("Command: #{cmd}")
+      system(cmd)
+    when 'Show git status' then
+      cmd = "git status"
+      puts("Command: #{cmd}")
+      system(cmd)
     end
+  end
+
+  def g4t_start
+    loop { show_panel }
+  end
 end
 
-verify
+Application.new
