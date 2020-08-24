@@ -30,7 +30,7 @@ class Application
   end
 
   def identify_user
-    if(File.exists?("/home/#{Etc.getlogin}/.gitconfig")) == false
+    if(File.exist?("/home/#{Etc.getlogin}/.gitconfig")) == false
         email = @prompt.ask("Github email: ")
         uname = @prompt.ask("Github username: ")
         cmd = "git config --global user.email #{email} && git config --global user.name #{uname}"
