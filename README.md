@@ -12,6 +12,10 @@ gem install tty-prompt
 ruby main.rb
 ```
 
+# Demo
+![[](demo.gif)](demo.gif)
+
+
 ## Contributing
 
 1. Fork it.
