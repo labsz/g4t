@@ -29,7 +29,7 @@ class Application
   end
 
   def identify_user
-    email = @prompt.mask("Github email: ")
+    email = @prompt.ask("Github email: ")
     uname = @prompt.ask("Github username: ")
     cmd = "git config --global user.email #{email} && git config --global user.name #{uname}"
     puts("Command: #{cmd}")
@@ -55,13 +55,12 @@ class Application
         cmd = "git add ."
         puts("Adding all files...")
         puts("Command: #{cmd}")
-        system(cmd)
       else
         fname = @prompt.ask("File to add:")
         cmd = "git add #{fname}"
         puts("Command: #{cmd}")
-        system(cmd)
       end
+      system(cmd)
     when 'Commit files' then
       $lastmsg = 'Now that we commited the files'
       msg = @prompt.ask("Message to commit:")
