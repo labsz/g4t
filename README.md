@@ -20,7 +20,6 @@ sudo sh install.sh
 Windows:
 
 ```sh
-gem install colorize
 gem install tty-prompt
 ruby main.rb
 ```
