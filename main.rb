@@ -7,58 +7,73 @@ require 'etc'
 
 class Options
     def initialize
-        @prompt = TTY::Prompt.new
+      @prompt = TTY::Prompt.new
     end
 
     def commit_files
-        $lastmsg = 'Now that we commited the files'
-        msg = @prompt.ask("Message to commit:")
-        cmd = "git commit -m #{msg}"
-        puts("Command: #{cmd}")
-        system(cmd)
+      $lastmsg = 'Now that we commited the files'
+      msg = @prompt.ask("Message to commit:")
+      cmd = "git commit -m #{msg}"
+      puts("Command: #{cmd}")
+      system(cmd)
     end
 
     def add_files
-        $lastmsg = 'Now that we added the files'
-        all_files = @prompt.yes?("Add all files?")
-        if all_files
-            cmd = "git add ."
-            puts("Adding all files...")
-        else
-            fname = @prompt.ask("File to add:")
-            cmd = "git add #{fname}"
-        end
-        puts("Command: #{cmd}")
-        system(cmd)
+      $lastmsg = 'Now that we added the files'
+      all_files = @prompt.yes?("Add all files?")
+      if all_files
+          cmd = "git add ."
+          puts("Adding all files...")
+      else
+          fname = @prompt.ask("File to add:")
+          cmd = "git add #{fname}"
+      end
+      puts("Command: #{cmd}")
+      system(cmd)
     end
 
     def logs
-        cmd = "git log"
-        puts("Command: #{cmd}")
-        system(cmd)
+      cmd = "git log"
+      puts("Command: #{cmd}")
+      system(cmd)
     end
 
     def push_branch
-        branch = @prompt.ask("Branch to push:")
-        cmd = "git push origin #{branch}"
-        puts("Command: #{cmd}")
-        system(cmd)
+      branch = @prompt.ask("Branch to push:")
+      cmd = "git push origin #{branch}"
+      puts("Command: #{cmd}")
+      system(cmd)
     end
 
     def remote_adress
-        $lastmsg = 'Now that we the remote address'
-        uname = @prompt.ask('Your github username:')
-        repo = @prompt.ask('Your repository name:')
-        cmd = "git remote add origin https://github.com/#{uname}/#{repo}.git"
-        puts("Adding remote repository https://github.com/#{uname}/#{repo}...")
-        puts("Command: #{cmd}")
-        system(cmd)
+      $lastmsg = 'Now that we the remote address'
+      uname = @prompt.ask('Your github username:')
+      repo = @prompt.ask('Your repository name:')
+      cmd = "git remote add origin https://github.com/#{uname}/#{repo}.git"
+      puts("Adding remote repository https://github.com/#{uname}/#{repo}...")
+      puts("Command: #{cmd}")
+      system(cmd)
     end
 
     def status
-        cmd = "git status"
-        puts("Command: #{cmd}")
-        system(cmd)
+      cmd = "git status"
+      puts("Command: #{cmd}")
+      system(cmd)
+    end
+
+    def clone_repo
+      uname = @prompt.ask("User name:")
+      repo = @prompt.ask("Repository name:")
+      cmd = "git clone https://github.com/#{uname}/#{repo}/"
+      puts("Command: #{cmd}")
+      system(cmd)
+    end
+
+    def restore
+      fname = @prompt.ask("File name:")
+      cmd = "git restore #{fname}"
+      puts("Command: #{cmd}")
+      system(cmd)
     end
 end
 
@@ -98,7 +113,8 @@ class Application
   end
 
   def show_panel
-    options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs', "Close"]
+    options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
+    options.push('Clone a repo', 'Restore a file', 'Close')
     option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
     case option
     when 'Add remote address' then
@@ -106,13 +122,17 @@ class Application
     when 'Add files' then
       @opt.add_files
     when 'Commit files' then
-        @opt.commit_files
+      @opt.commit_files
     when 'Push files to branch' then
       @opt.push_branch
     when 'Show git status' then
       @opt.status
     when 'Show git logs' then
       @opt.logs
+    when 'Restore a file' then
+      @opt.restore
+    when 'Clone a repo' then
+      @opt.clone_repo
     when 'Close' then
       puts "Goodbye"
       exit
