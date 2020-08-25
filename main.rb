@@ -115,8 +115,17 @@ class Application
   def show_panel
     options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
     options.push('Clone a repo', 'Restore a file', 'Close')
-    option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
-    case option
+    begin
+      @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
+      panel_verify
+    rescue TTY::Reader::InputInterrupt => e
+      puts "\nYou close the application"
+      exit
+    end
+  end
+
+  def panel_verify
+    case @option
     when 'Add remote address' then
       @opt.remote_adress
     when 'Add files' then
