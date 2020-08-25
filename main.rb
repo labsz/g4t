@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'tty-prompt'
-require 'colorize'
 require 'etc'
 
 class Options
@@ -89,6 +88,13 @@ class Options
       puts("Command: #{cmd}")
       system(cmd)
     end
+
+    def change_branch
+      bname = @prompt.ask("Branch name:")
+      cmd = "git checkout -b #{bname}"
+      puts("Command: #{cmd}")
+      system(cmd)
+    end
 end
 
 class Application
@@ -136,7 +142,7 @@ class Application
 
   def show_panel
     options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
-    options.push('Show diff', 'Restore a file', 'Close')
+    options.push('Show diff', 'Change branch', 'Restore a file', 'Close')
     begin
       @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
       panel_verify
@@ -163,6 +169,8 @@ class Application
       @opt.diff
     when 'Restore a file' then
       @opt.restore
+    when "Change branch" then
+      @opt.change_branch
     else
       abort("Goodbye, closed.")
     end
