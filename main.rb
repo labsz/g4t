@@ -75,6 +75,20 @@ class Options
       puts("Command: #{cmd}")
       system(cmd)
     end
+
+    def initialize_git
+      $lastmsg = "Now that we initialized .git"
+      cmd = "git init"
+      puts("Initializing Git repository in '#{Dir.pwd}/.git'...")
+      puts("Command: #{cmd}")
+      system(cmd)
+    end
+
+    def diff
+      cmd = "git diff"
+      puts("Command: #{cmd}")
+      system(cmd)
+    end
 end
 
 class Application
@@ -89,16 +103,24 @@ class Application
   def initialized_git?
     identify_user
     unless File.directory?('.git')
-      git_init = @prompt.yes?('The .git directory was not found, do you want to initialize it?')
-      if git_init
-        $lastmsg = "Now that we initialized .git"
-        cmd = "git init"
-        puts("Initializing Git repository in '#{Dir.pwd}/.git'...")
-        puts("Command: #{cmd}")
-        system(cmd)
-      else
-        abort('Can not possible continue without .git repository!')
+      options = ["Clone a repo", "Initialize a repo", "Close"]
+      begin
+        @git_init = @prompt.select("The .git directory was not found, what you wanna?", options)
+        initialized_git_verify
+      rescue TTY::Reader::InputInterrupt
+        abort("\nYou close the application")
       end
+    end
+  end
+
+  def initialized_git_verify
+    case @git_init
+    when "Initialize a repo" then
+      @opt.initialize_git
+    when "Clone a repo" then
+      @opt.clone_repo
+    else
+      abort('Can not possible continue without .git repository or a repository cloned!')
     end
   end
 
@@ -114,13 +136,12 @@ class Application
 
   def show_panel
     options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
-    options.push('Clone a repo', 'Restore a file', 'Close')
+    options.push('Show diff', 'Restore a file', 'Close')
     begin
       @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
       panel_verify
-    rescue TTY::Reader::InputInterrupt => e
-      puts "\nYou close the application"
-      exit
+    rescue TTY::Reader::InputInterrupt
+      abort("\nYou close the application")
     end
   end
 
@@ -138,13 +159,12 @@ class Application
       @opt.status
     when 'Show git logs' then
       @opt.logs
+    when 'Show diff' then
+      @opt.diff
     when 'Restore a file' then
       @opt.restore
-    when 'Clone a repo' then
-      @opt.clone_repo
-    when 'Close' then
-      puts "Goodbye"
-      exit
+    else
+      abort("Goodbye, closed.")
     end
   end
 
