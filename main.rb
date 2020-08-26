@@ -106,6 +106,13 @@ class Options
       end
       puts("____________\n\n")
     end
+
+    def remove_file
+      file_name = @prompt.ask("Type it the file name: ")
+      cmd = "git rm #{file_name}"
+      puts("Command: #{cmd}")
+      system(cmd)
+    end
 end
 
 class Application
@@ -154,7 +161,7 @@ class Application
 
   def show_panel
     options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
-    options.push('Show diff', 'Change branch', 'Restore a file', 'Close')
+    options.push('Remove a file', 'Show diff', 'Change branch', 'Restore a file', 'Close')
     begin
       @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
       panel_verify
@@ -183,6 +190,8 @@ class Application
       @opt.restore
     when "Change branch" then
       @opt.change_branch
+    when 'Remove a file' then
+      @opt.remove_file
     else
       abort("Goodbye, closed.")
     end
