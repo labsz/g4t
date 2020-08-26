@@ -20,7 +20,7 @@ sudo sh install.sh
 Windows:
 
 ```sh
-gem install tty-prompt
+bundle install
 ruby main.rb
 ```
 

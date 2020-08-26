@@ -112,6 +112,7 @@ class Application
   def initialize
     @prompt = TTY::Prompt.new
     @opt = Options.new
+    @opt.git_info
     $lastmsg ||= "With .git initialized"
     initialized_git?
     g4t_start
@@ -155,7 +156,6 @@ class Application
     options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
     options.push('Show diff', 'Change branch', 'Restore a file', 'Close')
     begin
-      @opt.git_info
       @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
       panel_verify
     rescue TTY::Reader::InputInterrupt
