@@ -95,6 +95,17 @@ class Options
       puts("Command: #{cmd}")
       system(cmd)
     end
+
+    def git_info
+      status = {
+      'Git branch' => IO.popen('git branch --show-current'),
+      'Repository name' => IO.popen('basename `git rev-parse --show-toplevel`')
+    }
+      status.each do |k, v|
+        puts("#{k}: #{v.read}")
+      end
+      puts("____________\n\n")
+    end
 end
 
 class Application
@@ -144,6 +155,7 @@ class Application
     options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
     options.push('Show diff', 'Change branch', 'Restore a file', 'Close')
     begin
+      @opt.git_info
       @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
       panel_verify
     rescue TTY::Reader::InputInterrupt
