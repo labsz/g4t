@@ -95,12 +95,37 @@ class Options
       puts("Command: #{cmd}")
       system(cmd)
     end
+
+    def git_info
+      status = {
+      'Git branch' => IO.popen('git branch --show-current'),
+      'Repository name' => IO.popen('basename `git rev-parse --show-toplevel`')
+    }
+      status.each do |k, v|
+        puts("#{k}: #{v.read}")
+      end
+      puts("____________\n\n")
+    end
+
+    def remove_file
+      file_name = @prompt.ask("Type it the file name: ")
+      cmd = "git rm #{file_name}"
+      puts("Command: #{cmd}")
+      system(cmd)
+    end
+
+    def show_last_commit
+      cmd = "git show"
+      puts("Command: #{cmd}")
+      system(cmd)
+    end
 end
 
 class Application
   def initialize
     @prompt = TTY::Prompt.new
     @opt = Options.new
+    @opt.git_info
     $lastmsg ||= "With .git initialized"
     initialized_git?
     g4t_start
@@ -142,7 +167,7 @@ class Application
 
   def show_panel
     options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
-    options.push('Show diff', 'Change branch', 'Restore a file', 'Close')
+    options.push("Show the last commit", 'Remove a file', 'Show diff', 'Change branch', 'Restore a file', 'Close')
     begin
       @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
       panel_verify
@@ -171,6 +196,10 @@ class Application
       @opt.restore
     when "Change branch" then
       @opt.change_branch
+    when 'Remove a file' then
+      @opt.remove_file
+    when 'Show the last commit' then
+      @opt.show_last_commit
     else
       abort("Goodbye, closed.")
     end
