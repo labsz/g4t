@@ -98,7 +98,7 @@ class Options
 
     def git_info
       status = {
-      'Git branch' => IO.popen('git branch --show-current'),
+      'Git branch' => IO.popen('git rev-parse --abbrev-ref HEAD'),
       'Repository name' => IO.popen('basename `git rev-parse --show-toplevel`')
     }
       status.each do |k, v|
