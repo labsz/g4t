@@ -11,10 +11,8 @@ class Options
 
     def commit_files
       $lastmsg = 'Now that we commited the files'
-      msg = @prompt.ask("Message to commit:")
-      cmd = "git commit -m #{msg}"
-      puts("Command: #{cmd}")
-      system(cmd)
+      msg = @prompt.ask("Commit message:")
+      Application.run("git commit -m #{msg}")
     end
 
     def add_files
@@ -27,80 +25,61 @@ class Options
           fname = @prompt.ask("File to add:")
           cmd = "git add #{fname}"
       end
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run(cmd)
     end
 
     def logs
-      cmd = "git log"
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git log")
     end
 
     def push_branch
       branch = @prompt.ask("Branch to push:")
-      cmd = "git push origin #{branch}"
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git push origin #{branch}")
     end
 
     def remote_adress
       $lastmsg = 'Now that we the remote address'
       uname = @prompt.ask('Your github username:')
       repo = @prompt.ask('Your repository name:')
-      cmd = "git remote add origin https://github.com/#{uname}/#{repo}.git"
       puts("Adding remote repository https://github.com/#{uname}/#{repo}...")
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git remote add origin https://github.com/#{uname}/#{repo}.git")
     end
 
     def status
-      cmd = "git status"
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git status")
     end
 
     def clone_repo
-      uname = @prompt.ask("User name:")
+      uname = @prompt.ask("Username:")
       repo = @prompt.ask("Repository name:")
-      cmd = "git clone https://github.com/#{uname}/#{repo}/"
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git clone https://github.com/#{uname}/#{repo}/")
     end
 
     def restore
       fname = @prompt.ask("File name:")
-      cmd = "git restore #{fname}"
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git restore #{fname}")
     end
 
     def initialize_git
       $lastmsg = "Now that we initialized .git"
-      cmd = "git init"
       puts("Initializing Git repository in '#{Dir.pwd}/.git'...")
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git init")
     end
 
     def diff
-      cmd = "git diff"
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git diff")
     end
 
     def change_branch
       bname = @prompt.ask("Branch name:")
-      cmd = "git checkout -b #{bname}"
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git checkout -b #{bname}")
     end
 
     def git_info
       status = {
-      'Git branch' => IO.popen('git rev-parse --abbrev-ref HEAD'),
-      'Repository name' => IO.popen('basename `git rev-parse --show-toplevel`')
-    }
+          'Git branch' => IO.popen('git rev-parse --abbrev-ref HEAD'),
+          'Repository name' => IO.popen('basename `git rev-parse --show-toplevel`')
+      }
       status.each do |k, v|
         puts("#{k}: #{v.read}")
       end
@@ -108,16 +87,12 @@ class Options
     end
 
     def remove_file
-      file_name = @prompt.ask("Type it the file name: ")
-      cmd = "git rm #{file_name}"
-      puts("Command: #{cmd}")
-      system(cmd)
+      file_name = @prompt.ask("Enter the file name: ")
+      Application.run("git rm #{file_name}")
     end
 
     def show_last_commit
-      cmd = "git show"
-      puts("Command: #{cmd}")
-      system(cmd)
+      Application.run("git show")
     end
 end
 
@@ -130,15 +105,20 @@ class Application
     g4t_start
   end
 
+  def self.run(cmd)
+    puts("Command: #{cmd}")
+    system(cmd)
+  end
+
   def initialized_git?
     identify_user
     unless File.directory?('.git')
       options = ["Clone a repo", "Initialize a repo", "Close"]
       begin
-        @git_init = @prompt.select("The .git directory was not found, what you wanna?", options)
+        @git_init = @prompt.select("The .git directory was not found, what do you want?", options)
         initialized_git_verify
       rescue TTY::Reader::InputInterrupt
-        abort("\nYou close the application")
+        abort("\nYou closed the application")
       end
     end
   end
@@ -150,7 +130,7 @@ class Application
     when "Clone a repo" then
       @opt.clone_repo
     else
-      abort('Can not possible continue without .git repository or a repository cloned!')
+      abort('It is not possible to continue without a .git repository or cloned repository!')
     end
   end
 
@@ -158,9 +138,7 @@ class Application
     if(File.exist?("/home/#{Etc.getlogin}/.gitconfig")) == false
         email = @prompt.ask("Github email: ")
         uname = @prompt.ask("Github username: ")
-        cmd = "git config --global user.email #{email} && git config --global user.name #{uname}"
-        puts("Command: #{cmd}")
-        system(cmd)
+        self.run("git config --global user.email #{email} && git config --global user.name #{uname}")
     end
   end
 
@@ -172,7 +150,7 @@ class Application
       @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
       panel_verify
     rescue TTY::Reader::InputInterrupt
-      abort("\nYou close the application")
+      abort("\nYou closed the application")
     end
   end
 
