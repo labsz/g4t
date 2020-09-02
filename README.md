@@ -18,7 +18,7 @@ $ chmod +x install.sh
 # ./install.sh
 ```
 
-OR
+or
 
 ```ascii
 # make install
@@ -39,7 +39,7 @@ Linux:
 # rm /usr/local/bin/g4t
 ```
 
-OR
+or
 
 ```ascii
 # make uninstall
