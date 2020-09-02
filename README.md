@@ -13,15 +13,36 @@
 
 Linux:
 
-```sh
-sudo sh install.sh
+```ascii
+$ chmod +x install.sh
+# ./install.sh
+```
+
+or
+
+```ascii
+# make install
 ```
 
 Windows:
 
-```sh
+```ascii
 bundle install
 ruby main.rb
+```
+
+## Uninstall
+
+Linux:
+
+```ascii
+# rm /usr/local/bin/g4t
+```
+
+or
+
+```ascii
+# make uninstall
 ```
 
 ## Contributing
