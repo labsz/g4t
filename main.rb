@@ -115,7 +115,7 @@ class Application
     unless File.directory?('.git')
       options = ["Clone a repo", "Initialize a repo", "Close"]
       begin
-        @git_init = @prompt.select("The .git directory was not found, what do you want?", options)
+        @git_init = @prompt.select("The .git directory was not found, what do you want to do?", options)
         initialized_git_verify
       rescue TTY::Reader::InputInterrupt
         abort("\nYou closed the application")
