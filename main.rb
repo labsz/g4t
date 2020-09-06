@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'tty-prompt'
+require 'os'
 require 'etc'
 
 class Options
@@ -19,11 +20,11 @@ class Options
       $lastmsg = 'Now that we added the files'
       all_files = @prompt.yes?("Add all files?")
       if all_files
-          cmd = "git add ."
-          puts("Adding all files...")
+        cmd = "git add ."
+        puts("Adding all files...")
       else
-          fname = @prompt.ask("File to add:")
-          cmd = "git add #{fname}"
+        fname = @prompt.ask("File to add:")
+        cmd = "git add #{fname}"
       end
       Application.run(cmd)
     end
@@ -77,8 +78,8 @@ class Options
 
     def git_info
       status = {
-          'Git branch' => IO.popen('git rev-parse --abbrev-ref HEAD'),
-          'Repository name' => IO.popen('basename `git rev-parse --show-toplevel`')
+          'Git branch' => IO.popen('git branch'),
+          'Repository url' => IO.popen('git config --get remote.origin.url')
       }
       status.each do |k, v|
         puts("#{k}: #{v.read}")
@@ -135,10 +136,19 @@ class Application
   end
 
   def identify_user
-    if(File.exist?("/home/#{Etc.getlogin}/.gitconfig")) == false
+    if OS.windows? == true
+      git_config = "C:\\Users\\#{Etc.getlogin}\\.gitconfig"
+    else
+      git_config = "/home/#{Etc.getlogin}/.gitconfig"
+    end
+    if(File.exist?(git_config)) == false
+      begin
         email = @prompt.ask("Github email: ")
         uname = @prompt.ask("Github username: ")
         self.run("git config --global user.email #{email} && git config --global user.name #{uname}")
+      rescue TTY::Reader::InputInterrupt
+        abort("\nYou closed the application")
+      end
     end
   end
 
