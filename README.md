@@ -1,6 +1,6 @@
 ![demo](./img/demo.gif)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # G4t
@@ -66,6 +66,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/skorp1o"><img src="https://avatars2.githubusercontent.com/u/66979446?v=4" width="100px;" alt=""/><br /><sub><b>Gustavo Costa</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=skorp1o" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/yatoxpl"><img src="https://avatars0.githubusercontent.com/u/69571981?v=4" width="100px;" alt=""/><br /><sub><b>Ricardo</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=yatoxpl" title="Code">💻</a></td>
+    <td align="center"><a href="http://freazesss.netlify.app"><img src="https://avatars3.githubusercontent.com/u/60306241?v=4" width="100px;" alt=""/><br /><sub><b>Gustavo L.</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=freazesss" title="Code">💻</a></td>
   </tr>
 </table>
 
