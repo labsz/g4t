@@ -1,3 +1,5 @@
+![demo](./img/demo.gif)
+
 # G4t
 > :octocat: A simple cli app to help you with git.
 
@@ -5,9 +7,6 @@
 ![stars](https://img.shields.io/github/stars/freazesss/g4t.svg)
 ![contributors](https://img.shields.io/github/contributors/freazesss/g4t.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/freazesss/g4t/badge/master)](https://www.codefactor.io/repository/github/freazesss/g4t/overview/master)
-
-
-![demo](.imgs/demo.gif)
 
 ## Installation
 
