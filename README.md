@@ -1,19 +1,35 @@
-![demo](./img/demo.gif)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 # G4t
 > :octocat: A simple cli app to help you with git.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![stars](https://img.shields.io/github/stars/freazesss/g4t.svg)
-![contributors](https://img.shields.io/github/contributors/freazesss/g4t.svg)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 [![CodeFactor](https://www.codefactor.io/repository/github/freazesss/g4t/badge/master)](https://www.codefactor.io/repository/github/freazesss/g4t/overview/master)
 
-## Installation
+## Table
 
-Linux:
+- [Install Windows](#install-linux)
+- [Install Linux](#install-windows)
+- [Contributing](#Contributing)
+
+## Install windows
+
+0. Clone the repository on the folder **Documents**.
+
+1. On the Windows desktop, right-click My Computer.
+2. In the pop-up menu, click Properties.
+3. In the System Properties window, click the Advanced tab, and then click Environment Variables.
+4. In the System Variables window, highlight Path, and click Edit.
+5. In the Edit System Variables window, insert the cursor at the end of the Variable value field.
+6. If the last character is not a semi-colon (;), add one.
+7. After the final semi-colon, type the full path to the file you want to find.
+```path
+C:\Users\you_name_desktop\Documents\g4t\build\Windows
+```
+
+8. Click OK in each open window.
+
+## Install Linux
 
 ```ascii
 $ chmod +x install.sh
@@ -24,13 +40,6 @@ or
 
 ```ascii
 # make install
-```
-
-Windows:
-
-```ascii
-bundle install
-ruby main.rb
 ```
 
 ## Uninstall
@@ -46,6 +55,10 @@ or
 ```ascii
 # make uninstall
 ```
+
+Windows:
+
+just remove of your path and del the g4t folder of **Documents**.
 
 ## Contributing
 
