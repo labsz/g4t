@@ -10,6 +10,7 @@
 
 - [Install Windows](#install-linux)
 - [Install Linux](#install-windows)
+- [Documentation](./docs/README.md)
 - [Contributing](#Contributing)
 
 ## Install windows
