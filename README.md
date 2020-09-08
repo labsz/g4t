@@ -80,6 +80,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/skorp1o"><img src="https://avatars2.githubusercontent.com/u/66979446?v=4" width="100px;" alt=""/><br /><sub><b>Gustavo Costa</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=skorp1o" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/yatoxpl"><img src="https://avatars0.githubusercontent.com/u/69571981?v=4" width="100px;" alt=""/><br /><sub><b>Ricardo</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=yatoxpl" title="Code">💻</a></td>
     <td align="center"><a href="http://freazesss.netlify.app"><img src="https://avatars3.githubusercontent.com/u/60306241?v=4" width="100px;" alt=""/><br /><sub><b>Gustavo L.</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=freazesss" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/edersonferreira"><img src="https://avatars3.githubusercontent.com/u/54503981?v=4" width="100px;" alt=""/><br /><sub><b>Ederson Ferreira</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=edersonferreira" title="Code">💻</a></td>
   </tr>
 </table>
 
