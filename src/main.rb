@@ -57,7 +57,7 @@ class Options
     end
 
     def status
-      `git status`
+      Application.run("git status")
     end
 
     def clone_repo
@@ -95,7 +95,7 @@ class Options
     end
 
     def diff
-      `git diff`
+      Application.run("git diff")
     end
 
     def change_branch
@@ -120,7 +120,7 @@ class Options
     end
 
     def show_last_commit
-      `git show`
+      Application.run("git show")
     end
 
     def pull_changes
