@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'tty-prompt'
-require 'os'
-require 'etc'
+require "tty-prompt"
+require "os"
+require "etc"
 
 class Options
     def initialize
@@ -11,13 +11,23 @@ class Options
     end
 
     def commit_files
-      $lastmsg = 'Now that we commited the files'
+      $lastmsg = "Now that we commited the files"
       msg = @prompt.ask("Commit message:")
+
+      if msg[0] != "\""
+        msg = "\"#{msg}"
+      end
+
+      if msg[-1] != "\""
+        msg = "#{msg}\""
+      end
+
+      puts msg
       `git commit -m #{msg}`
     end
 
     def add_files
-      $lastmsg = 'Now that we added the files'
+      $lastmsg = "Now that we added the files"
       all_files = @prompt.yes?("Add all files?")
       if all_files
         cmd = "git add ."
@@ -30,7 +40,7 @@ class Options
     end
 
     def logs
-      `git log`
+      Application.run("git log")
     end
 
     def push_branch
@@ -39,15 +49,15 @@ class Options
     end
 
     def remote_adress
-      $lastmsg = 'Now that we the remote address'
-      uname = @prompt.ask('Your github username:')
-      repo = @prompt.ask('Your repository name:')
+      $lastmsg = "Now that we the remote address"
+      uname = @prompt.ask("Your github username:")
+      repo = @prompt.ask("Your repository name:")
       puts("Adding remote repository https://github.com/#{uname}/#{repo}...")
       `git remote add origin https://github.com/#{uname}/#{repo}.git`
     end
 
     def status
-      `git status`
+      Application.run("git status")
     end
 
     def clone_repo
@@ -85,7 +95,7 @@ class Options
     end
 
     def diff
-      `git diff`
+      Application.run("git diff")
     end
 
     def change_branch
@@ -95,8 +105,8 @@ class Options
 
     def git_info
       status = {
-          'Git branch' => IO.popen('git branch'),
-          'Repository url' => IO.popen('git config --get remote.origin.url')
+          "Git branch" => IO.popen("git branch"),
+          "Repository url" => IO.popen("git config --get remote.origin.url")
       }
       status.each do |k, v|
         puts("#{k}: #{v.read}")
@@ -110,7 +120,7 @@ class Options
     end
 
     def show_last_commit
-      `git show`
+      Application.run("git show")
     end
 
     def pull_changes
@@ -136,7 +146,7 @@ class Application
 
   def initialized_git?
     identify_user
-    unless File.directory?('.git')
+    unless File.directory?(".git")
       options = ["Clone a repo", "Initialize a repo", "Close"]
       begin
         @git_init = @prompt.select("The .git directory was not found, what do you want to do?", options)
@@ -154,7 +164,7 @@ class Application
     when "Clone a repo" then
       @opt.clone_repo
     else
-      abort('It is not possible to continue without a .git repository or cloned repository!')
+      abort("It is not possible to continue without a .git repository or cloned repository!")
     end
   end
 
@@ -176,21 +186,21 @@ class Application
   end
 
   def show_panel
-    options = ['Add remote address',
-               'Add files',
-               'Commit files',
-               'Push files to branch',
-               'Show git status',
-               'Show git logs',
+    options = ["Add remote address",
+               "Add files",
+               "Commit files",
+               "Push files to branch",
+               "Show git status",
+               "Show git logs",
                "Show the last commit",
-               'Remove a file',
-               'Show diff',
-               'Change branch',
-               'Git pull changes',
-               'Restore a file',
-               'Reset to a commit',
+               "Remove a file",
+               "Show diff",
+               "Change branch",
+               "Git pull changes",
+               "Restore a file",
+               "Reset to a commit",
                "Reset to the last commit",
-               'Close']
+               "Close"]
 
     begin
       @opt.git_info
@@ -203,33 +213,33 @@ class Application
 
   def panel_verify
     case @option
-    when 'Add remote address' then
+    when "Add remote address" then
       @opt.remote_adress
-    when 'Add files' then
+    when "Add files" then
       @opt.add_files
-    when 'Commit files' then
+    when "Commit files" then
       @opt.commit_files
-    when 'Push files to branch' then
+    when "Push files to branch" then
       @opt.push_branch
-    when 'Show git status' then
+    when "Show git status" then
       @opt.status
-    when 'Show git logs' then
+    when "Show git logs" then
       @opt.logs
-    when 'Show diff' then
+    when "Show diff" then
       @opt.diff
-    when 'Restore a file' then
+    when "Restore a file" then
       @opt.restore
-    when 'Reset to a commit' then
+    when "Reset to a commit" then
       @opt.reset
-    when 'Reset to the last commit' then
+    when "Reset to the last commit" then
       @opt.hard_reset
     when "Change branch" then
       @opt.change_branch
-    when 'Remove a file' then
+    when "Remove a file" then
       @opt.remove_file
-    when 'Show the last commit' then
+    when "Show the last commit" then
       @opt.show_last_commit
-    when 'Git pull changes' then
+    when "Git pull changes" then
       @opt.pull_changes
     else
       abort("Goodbye, closed.")
