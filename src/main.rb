@@ -13,7 +13,7 @@ class Options
     def commit_files
       $lastmsg = 'Now that we commited the files'
       msg = @prompt.ask("Commit message:")
-      Application.run("git commit -m #{msg}")
+      `git commit -m #{msg}`
     end
 
     def add_files
@@ -26,16 +26,16 @@ class Options
         fname = @prompt.ask("File to add:")
         cmd = "git add #{fname}"
       end
-      Application.run(cmd)
+      `#{cmd}`
     end
 
     def logs
-      Application.run("git log")
+      `git log`
     end
 
     def push_branch
       branch = @prompt.ask("Branch to push:")
-      Application.run("git push origin #{branch}")
+      `git push origin #{branch}`
     end
 
     def remote_adress
@@ -43,37 +43,54 @@ class Options
       uname = @prompt.ask('Your github username:')
       repo = @prompt.ask('Your repository name:')
       puts("Adding remote repository https://github.com/#{uname}/#{repo}...")
-      Application.run("git remote add origin https://github.com/#{uname}/#{repo}.git")
+      `git remote add origin https://github.com/#{uname}/#{repo}.git`
     end
 
     def status
-      Application.run("git status")
+      `git status`
     end
 
     def clone_repo
       uname = @prompt.ask("Username:")
       repo = @prompt.ask("Repository name:")
-      Application.run("git clone https://github.com/#{uname}/#{repo}/")
+      `git clone https://github.com/#{uname}/#{repo}/`
     end
 
     def restore
       fname = @prompt.ask("File name:")
-      Application.run("git restore #{fname}")
+      `git restore #{fname}`
+    end
+
+    def reset
+      commit = @prompt.ask("Commit id:")
+      `git reset --hard #{commit}`
+    end
+
+    def hard_reset
+      confirmation = @prompt.yes?("do you really want to hard reset?")
+
+      if confirmation
+        `git reset --hard HEAD~`
+
+      else
+        puts "Cancelling operation"
+      end
+
     end
 
     def initialize_git
       $lastmsg = "Now that we initialized .git"
       puts("Initializing Git repository in '#{Dir.pwd}/.git'...")
-      Application.run("git init")
+      `git init`
     end
 
     def diff
-      Application.run("git diff")
+      `git diff`
     end
 
     def change_branch
       bname = @prompt.ask("Branch name:")
-      Application.run("git checkout -b #{bname}")
+      `git checkout -b #{bname}`
     end
 
     def git_info
@@ -89,17 +106,17 @@ class Options
 
     def remove_file
       file_name = @prompt.ask("Enter the file name: ")
-      Application.run("git rm #{file_name}")
+      `git rm #{file_name}`
     end
 
     def show_last_commit
-      Application.run("git show")
+      `git show`
     end
 
     def pull_changes
       git_pull_options = ["rebase", "no-rebase", "ff-only"]
       chose = @prompt.select("chose: ", git_pull_options)
-      Application.run("git pull --#{chose}")
+      `git pull --#{chose}`
     end
 end
 
@@ -159,8 +176,22 @@ class Application
   end
 
   def show_panel
-    options = ['Add remote address', 'Add files', 'Commit files', 'Push files to branch', 'Show git status', 'Show git logs']
-    options.push("Show the last commit", 'Remove a file', 'Show diff', 'Change branch', 'Git pull changes', 'Restore a file', 'Close')
+    options = ['Add remote address',
+               'Add files',
+               'Commit files',
+               'Push files to branch',
+               'Show git status',
+               'Show git logs',
+               "Show the last commit",
+               'Remove a file',
+               'Show diff',
+               'Change branch',
+               'Git pull changes',
+               'Restore a file',
+               'Reset to a commit',
+               "Reset to the last commit",
+               'Close']
+
     begin
       @opt.git_info
       @option = @prompt.select("#{$lastmsg}, what do you want to do?", options)
@@ -188,6 +219,10 @@ class Application
       @opt.diff
     when 'Restore a file' then
       @opt.restore
+    when 'Reset to a commit' then
+      @opt.reset
+    when 'Reset to the last commit' then
+      @opt.hard_reset
     when "Change branch" then
       @opt.change_branch
     when 'Remove a file' then
