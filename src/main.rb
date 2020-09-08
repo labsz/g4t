@@ -40,7 +40,7 @@ class Options
     end
 
     def logs
-      `git log`
+      Application.run("git log")
     end
 
     def push_branch
