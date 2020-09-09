@@ -7,9 +7,8 @@ require "etc"
 module G4t
   class Options
     def initialize
-      $prompt = TTY::Prompt.new 
+      $prompt = TTY::Prompt.new
     end
-    
     def commit_files
       $lastmsg = "Now that we commited the files"
       msg = $prompt.ask("Commit message:")
@@ -36,7 +35,7 @@ module G4t
         fname = $prompt.ask("File to add:")
         cmd = "git add #{fname}"
       end
-      run_command("#{cmd}")
+      run_command(cmd)
     end
 
     def logs
@@ -144,8 +143,7 @@ module G4t
     def verify_system
       if OS.windows?; "C:\\Users\\#{Etc.getlogin}\\.gitconfig" else "/home/#{Etc.getlogin}/.gitconfig" end
     end
-    
-    def git_init? 
+    def git_init?
       identify_user
       unless File.directory?(".git")
         begin
@@ -207,7 +205,6 @@ module G4t
         abort("\nYou has closed the application.")
       end
     end
-  
     def verify_option
       case @opt_select
       when "Add remote address" then
