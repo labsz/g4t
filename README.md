@@ -11,6 +11,7 @@
 - [Install](#install)
 - [Build](#Build)
 - [Uninstall](#Uninstall)
+- [Documentation](#Documentation)
 - [Contributing](#Contributing)
 
 ## Install
@@ -44,6 +45,10 @@ if you have build it:
 ```ascii
 # make uninstall
 ```
+
+## Documentation
+
+To see the documentation of g4t, [see the docs directory](docs)
 
 ## Contributing
 
