@@ -45,10 +45,6 @@ if you have build it:
 # make uninstall
 ```
 
-Windows:
-
-just remove of your path and del the g4t folder of **Documents**.
-
 ## Contributing
 
 1. Fork it.
