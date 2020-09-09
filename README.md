@@ -8,38 +8,27 @@
 
 ## Table
 
-- [Install Windows](#install-linux)
-- [Install Linux](#install-windows)
+- [Install](#install)
+- [Build](#Build)
+- [Uninstall](#Uninstall)
 - [Contributing](#Contributing)
 
-## Install windows
-
-0. Clone the repository on the folder **Documents**.
-
-1. On the Windows desktop, right-click My Computer.
-2. In the pop-up menu, click Properties.
-3. In the System Properties window, click the Advanced tab, and then click Environment Variables.
-4. In the System Variables window, highlight Path, and click Edit.
-5. In the Edit System Variables window, insert the cursor at the end of the Variable value field.
-6. If the last character is not a semi-colon (;), add one.
-7. After the final semi-colon, type the full path to the file you want to find.
-```path
-C:\Users\you_name_desktop\Documents\g4t\build\Windows
-```
-
-8. Click OK in each open window.
-
-## Install Linux
+## Install
 
 ```ascii
-$ chmod +x install.sh
-# ./install.sh
+gem install G4t
 ```
 
-or
+### Build
 
 ```ascii
-# make install
+# make
+```
+
+and run it:
+
+```sh
+G4t
 ```
 
 ## Uninstall
@@ -47,10 +36,10 @@ or
 Linux:
 
 ```ascii
-# rm /usr/local/bin/g4t
+gem uninstall G4t
 ```
 
-or
+if you have build it:
 
 ```ascii
 # make uninstall
