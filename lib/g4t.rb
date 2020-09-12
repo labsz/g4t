@@ -172,7 +172,7 @@ module G4t
         begin
           email = $prompt.ask("Github email: ")
           uname = $prompt.ask("Github username: ")
-          self.run("git config --global user.email #{email} && git config --global user.name #{uname}")
+          @opt.run_command("git config --global user.email #{email} && git config --global user.name #{uname}")
         rescue TTY::Reader::InputInterrupt
           abort("\nYou closed the application")
         end
