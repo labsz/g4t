@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 s.name        = "G4t"
-s.version     = "1.1"
-s.date        = "2020-09-08"
+s.version     = "1.2"
+s.date        = "2020-09-13"
 s.summary     = "git"
 s.description = "A simple cli app to make the git commands more easy to you, commit, push and etc."
 s.authors     = ["freazesss"]
