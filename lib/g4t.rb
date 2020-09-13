@@ -157,11 +157,11 @@ module G4t
     end
 
     def git_init_verify
-      case @giti_init_select
+      case @git_init_select
       when "Clone a repo"
         @opt.clone_repo
-      when "Init a repo"
-        @opt.init_repo
+      when "Initialize a repo"
+        @opt.initialize_git
       else
         abort("It is not possible to continue without a .git repository or cloned repository!")
       end
