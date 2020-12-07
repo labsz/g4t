@@ -1,17 +1,17 @@
-# G4t
-> :octocat: A simple cli app to help you with git.
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![stars](https://img.shields.io/github/stars/freazesss/g4t.svg)
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-[![CodeFactor](https://www.codefactor.io/repository/github/freazesss/g4t/badge/master)](https://www.codefactor.io/repository/github/freazesss/g4t/overview/master)
+<div align=center>
+  <h1>G4t</h1>
+  <p>:octocat: A simple cli app to help you with git.</p>
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="license" />
+  <img src="https://img.shields.io/github/stars/freazesss/g4t.svg" alt="start_count"/>
+  <img src="https://www.codefactor.io/repository/github/labsz/g4t/badge" alt="codefactor" />
+</div>
 
 ## Table
 
 - [Install](#install)
 - [Build](#Build)
 - [Uninstall](#Uninstall)
-- [Documentation](#Documentation)
+- [Documentation](./docs/README.md)
 - [Contributing](#Contributing)
 
 ## Install
@@ -48,7 +48,7 @@ if you have build it:
 
 ## Documentation
 
-To see the documentation of g4t, [see the docs directory](docs)
+To see the documentation of g4t, [see the docs directory](docs) 
 
 ## Contributing
 
@@ -67,8 +67,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/skorp1o"><img src="https://avatars2.githubusercontent.com/u/66979446?v=4" width="100px;" alt=""/><br /><sub><b>Gustavo Costa</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=skorp1o" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/yatoxpl"><img src="https://avatars0.githubusercontent.com/u/69571981?v=4" width="100px;" alt=""/><br /><sub><b>Ricardo</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=yatoxpl" title="Code">💻</a></td>
     <td align="center"><a href="http://freazesss.netlify.app"><img src="https://avatars3.githubusercontent.com/u/60306241?v=4" width="100px;" alt=""/><br /><sub><b>Gustavo L.</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=freazesss" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/edersonferreira"><img src="https://avatars3.githubusercontent.com/u/54503981?v=4" width="100px;" alt=""/><br /><sub><b>Ederson Ferreira</b></sub></a><br /><a href="https://github.com/freazesss/g4t/commits?author=edersonferreira" title="Code">💻</a></td>
   </tr>

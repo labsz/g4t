@@ -5,3 +5,4 @@ install:
 
 uninstall:
 	rm -f /usr/local/bin/g4t
+	@echo -e "\nSuccessfully uninstalled" 
