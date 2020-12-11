@@ -16,12 +16,12 @@ module G4t
 
     def verify_system
       if OS.windows?
-         "C:\\Users\\#{Etc.getlogin}\\.gitconfig" 
+         "C:\\Users\\#{Etc.getlogin}\\.gitconfig"
       else
-        "/home/#{Etc.getlogin}/.gitconfig" 
+        "/home/#{Etc.getlogin}/.gitconfig"
       end
     end
-    
+
     def git_init?
       unless File.directory?(".git")
         begin
@@ -84,7 +84,7 @@ module G4t
         abort("\nYou has closed the application.")
       end
     end
-    
+
     def verify_option(option)
       switch = {
         "Add remote address" => @opt.method(:remote_adress),
@@ -102,7 +102,7 @@ module G4t
         "Show the last commit" => @opt.method(:show_last_commit),
         "Git pull changes" => @opt.method(:pull_changes)
       }
-    
+
       return switch[option].call
     end
 
