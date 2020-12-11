@@ -2,7 +2,7 @@ class Options
   def initialize
     @prompt = TTY::Prompt.new
   end
-  
+
   def commit_files
     $lastmsg = "Now that we commited the files"
     msg = @prompt.ask("Commit message:")
